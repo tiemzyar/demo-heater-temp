@@ -1,1 +1,1 @@
-export * from './lib/demo-heater-temp-lib.module';
+export * from './lib/demo-heater-temp.module';
