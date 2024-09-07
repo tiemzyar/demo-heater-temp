@@ -146,7 +146,7 @@ export class DemoHeaterTempComponent implements OnInit {
      * <p>Options: https://api.highcharts.com/highcharts/yAxis
      */
     private getChartAxisOptions(): Highcharts.AxisOptions {
-        let axisOptionsCommon = {
+        const axisOptionsCommon = {
             min: this.minTemp$.getValue(),
             max: this.maxTemp$.getValue(),
             lineWidth: 2,

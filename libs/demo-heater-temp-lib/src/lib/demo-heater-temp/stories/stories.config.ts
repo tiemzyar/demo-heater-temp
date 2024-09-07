@@ -1,5 +1,5 @@
 import { applicationConfig, Meta, moduleMetadata } from '@storybook/angular';
-import { DemoHeaterTempModule } from '@demo-heater-temp/demo-heater-temp-lib';
+import { DemoHeaterTempModule } from '../../demo-heater-temp.module';
 import { DemoHeaterTempComponent } from '../demo-heater-temp.component';
 import { importProvidersFrom } from '@angular/core';
 import { MockModule } from '../../testing';
