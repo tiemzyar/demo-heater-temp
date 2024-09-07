@@ -1,1 +1,10 @@
-<h1>Heater Temperature</h1>
+<h1>Heater Temperature Gauge</h1>
+
+<div id="options">
+    <p>Min: {{ minTemp$ | async }} °C</p>
+    <p>Max: {{ maxTemp$ | async }} °C</p>
+    <p>Target: {{ targetTemp$ | async }} °C</p>
+    <p>Simple layout: {{ useSimpleAxis$ | async }}</p>
+</div>
+
+<div id="chart"></div>

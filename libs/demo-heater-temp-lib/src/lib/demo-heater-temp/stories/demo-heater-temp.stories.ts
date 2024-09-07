@@ -12,6 +12,11 @@ const Template: StoryFn = (args) => ({
 
 export const DemoHeaterTemperature = {
     render: Template,
-    args: {},
+    args: {
+        minTemp: 10,
+        maxTemp: 30,
+        targetTemp: 22,
+        useSimpleAxis: true,
+    },
     argTypes: {},
 };
