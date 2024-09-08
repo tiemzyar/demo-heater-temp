@@ -22,31 +22,47 @@ export class DemoHeaterTempComponent implements OnInit {
 
     /**
      * Updates the component's minimum temperature.
-     * <p> Also adjusts the component's target temperature, if necessary.
+     * <p> Also adjusts the component's target temperature, if necessary, and prevents minimum
+     * temperature from becoming greater than or equal to maximum temperature.
      *
      * @param value New minimum temperature
      */
     @Input()
     set minTemp(value: number) {
-        this.minTemp$.next(value);
+        let newValue = value;
+        const maxTemp = this.maxTemp$.getValue();
+        if (value >= maxTemp) {
+            newValue = maxTemp - this.minMaxDelta;
+        }
+
+        this.minTemp$.next(newValue);
         this.updateChartAxisData();
-        if (value > this.targetTemp$.getValue()) {
-            this.targetTemp = value;
+
+        if (newValue > this.targetTemp$.getValue()) {
+            this.targetTemp = newValue;
         }
     }
 
     /**
      * Updates the component's maximum temperature.
-     * <p> Also adjusts the component's target temperature, if necessary.
+     * <p> Also adjusts the component's target temperature, if necessary, and prevents maximum
+     * temperature from becoming smaller than or equal to minimum temperature.
      *
      * @param value New maximum temperature
      */
     @Input()
     set maxTemp(value: number) {
-        this.maxTemp$.next(value);
+        let newValue = value;
+        const minTemp = this.minTemp$.getValue();
+        if (value <= minTemp) {
+            newValue = minTemp + this.minMaxDelta;
+        }
+
+        this.maxTemp$.next(newValue);
         this.updateChartAxisData();
-        if (value < this.targetTemp$.getValue()) {
-            this.targetTemp = value;
+
+        if (newValue < this.targetTemp$.getValue()) {
+            this.targetTemp = newValue;
         }
     }
 
@@ -86,8 +102,9 @@ export class DemoHeaterTempComponent implements OnInit {
     /**
      * Chart used for visualising the component's minimum, target and maximum temperature.
      */
-    private chart?: Highcharts.Chart;
-    private highlightColor = '#00F';
+    chart?: Highcharts.Chart;
+    private readonly highlightColor = '#00F';
+    private readonly minMaxDelta = 1;
     // endregion
 
     // region Lifecycle
@@ -107,6 +124,10 @@ export class DemoHeaterTempComponent implements OnInit {
 
             title: {
                 text: undefined,
+            },
+
+            accessibility: {
+                enabled: false,
             },
 
             credits: {
